@@ -29,11 +29,11 @@ void setup()
 {
   lcd.begin (12,2); // <<-- our LCD is a 20x4, change for your LCD if needed
  
-// LCD Backlight ON
-lcd.setBacklightPin(BACKLIGHT_PIN,POSITIVE);
-lcd.setBacklight(HIGH);
+  // LCD Backlight ON
+  lcd.setBacklightPin(BACKLIGHT_PIN,POSITIVE);
+  lcd.setBacklight(HIGH);
 
-lcd.home (); // go home on LCD
+  lcd.home (); // go home on LCD
 
 float reading;
  
@@ -41,31 +41,31 @@ float reading;
 
 void loop()
 {
-Serial.begin(9600);
+  Serial.begin(9600);
 
-int temperature = temp.getTemp();
-double uS = sonar.ping() * 1.0951047207; // Send ping, get ping time in microseconds (uS).
-unsigned int cm = (1404.3 + 4.7*temperature - (0.04 * pow(temperature, 2))) * 0.00005114827 * uS;
+  int temperature = temp.getTemp();
+  double uS = sonar.ping() * 1.0951047207; // Send ping, get ping time in microseconds (uS).
+  unsigned int cm = (1404.3 + 4.7*temperature - (0.04 * pow(temperature, 2))) * 0.00005114827 * uS;
 
-double expectedUS = sonar.ping();
-unsigned int expectedCM = sonar.convert_cm(expectedUS);
+  double expectedUS = sonar.ping();
+  unsigned int expectedCM = sonar.convert_cm(expectedUS);
 
-String altitudeDisplay = "Altitude: ";
-String altitudeDisplayUnits = " cm";
-String finalAltitudeDisplay = altitudeDisplay + cm + altitudeDisplayUnits;
-String temperatureDisplay = "Temperature: ";
-String temperatureDisplayUnits = "C";
-String finalTemperatureDisplay = temperatureDisplay + temperature + temperatureDisplayUnits;
-String pingTimeDisplay = "Ping Time: ";
-String pingTimeDisplayUnits = " uS";
-String finalPingTimeDisplay = pingTimeDisplay + uS + pingTimeDisplayUnits;
+  String altitudeDisplay = "Altitude: ";
+  String altitudeDisplayUnits = " cm";
+  String finalAltitudeDisplay = altitudeDisplay + cm + altitudeDisplayUnits;
+  String temperatureDisplay = "Temperature: ";
+  String temperatureDisplayUnits = "C";
+  String finalTemperatureDisplay = temperatureDisplay + temperature + temperatureDisplayUnits;
+  String pingTimeDisplay = "Ping Time: ";
+  String pingTimeDisplayUnits = " uS";
+  String finalPingTimeDisplay = pingTimeDisplay + uS + pingTimeDisplayUnits;
 
-String expAltitudeDisplay = "Expected Altitude: ";
-String expTemperatureDisplay = "Expected Temperature: ";
-String expPingTimeDisplay = "Expected Ping Time: ";
-String expFinalAltitudeDisplay = expAltitudeDisplay + expectedCM + altitudeDisplayUnits;
-String expFinalTemperatureDisplay = finalTemperatureDisplay;
-String expFinalPingTimeDisplay = expPingTimeDisplay + expectedUS + pingTimeDisplayUnits;
+  String expAltitudeDisplay = "Expected Altitude: ";
+  String expTemperatureDisplay = "Expected Temperature: ";
+  String expPingTimeDisplay = "Expected Ping Time: ";
+  String expFinalAltitudeDisplay = expAltitudeDisplay + expectedCM + altitudeDisplayUnits;
+  String expFinalTemperatureDisplay = finalTemperatureDisplay;
+  String expFinalPingTimeDisplay = expPingTimeDisplay + expectedUS + pingTimeDisplayUnits;
 
     lcd.setCursor (0,0); // go to start of 2nd line
       lcd.print(finalAltitudeDisplay);
@@ -74,14 +74,14 @@ String expFinalPingTimeDisplay = expPingTimeDisplay + expectedUS + pingTimeDispl
       lcd.print(finalTemperatureDisplay);
         delay(500);
         
-  Serial.println(finalAltitudeDisplay);
-  Serial.println(finalTemperatureDisplay);
-  Serial.println(finalPingTimeDisplay);
-  Serial.println(" ");
-  Serial.println(expFinalAltitudeDisplay);
-  Serial.println(expFinalTemperatureDisplay);
-  Serial.println(expFinalPingTimeDisplay);
-  Serial.println(" ");
-    delay(1000);
+    Serial.println(finalAltitudeDisplay);
+    Serial.println(finalTemperatureDisplay);
+    Serial.println(finalPingTimeDisplay);
+    Serial.println(" ");
+    Serial.println(expFinalAltitudeDisplay);
+    Serial.println(expFinalTemperatureDisplay);
+    Serial.println(expFinalPingTimeDisplay);
+    Serial.println(" ");
+      delay(1000);
 
 }
