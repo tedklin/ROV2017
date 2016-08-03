@@ -1,4 +1,6 @@
- 
+/**
+ * @author tedfoodlin + techzone
+ */
 
 #include <Wire.h>
 #include <LCD.h>
