@@ -67,6 +67,10 @@ void loop()
   String expFinalTemperatureDisplay = finalTemperatureDisplay;
   String expFinalPingTimeDisplay = expPingTimeDisplay + expectedUS + pingTimeDisplayUnits;
 
+  double pingTimeFactor = expectedUS / uS;
+  String pingTimeFactorDisplay = "Ping Time Factor: ";
+  String pingTimeFactor = pingTimeFactorDisplay + pingTimeFactor;
+
     lcd.setCursor (0,0); // go to start of 2nd line
       lcd.print(finalAltitudeDisplay);
         delay(500);
@@ -82,6 +86,9 @@ void loop()
     Serial.println(expFinalTemperatureDisplay);
     Serial.println(expFinalPingTimeDisplay);
     Serial.println(" ");
+    Serial.println(pingTimeFactor);
+    Serial.println(" ");
+    
       delay(1000);
 
 }
