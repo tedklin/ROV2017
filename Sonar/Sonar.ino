@@ -47,10 +47,10 @@ void loop()
 
   int temperature = temp.getTemp();
   double uS = sonar.ping() * 1.0951047207; // Send ping, get ping time in microseconds (uS).
-  unsigned int cm = (1404.3 + 4.7*temperature - (0.04 * pow(temperature, 2))) * 0.00005114827 * uS;
+  unsigned int cm = (1404.3 + 4.7*temperature - (0.04 * pow(temperature, 2))) * 0.00005114827 * uS + 5;
 
-  double expectedUS = sonar.ping();
-  unsigned int expectedCM = sonar.convert_cm(expectedUS);
+//  double expectedUS = sonar.ping();
+//  unsigned int expectedCM = sonar.convert_cm(expectedUS);
 
   String altitudeDisplay = "Altitude: ";
   String altitudeDisplayUnits = " cm";
@@ -62,16 +62,16 @@ void loop()
   String pingTimeDisplayUnits = " uS";
   String finalPingTimeDisplay = pingTimeDisplay + uS + pingTimeDisplayUnits;
 
-  String expAltitudeDisplay = "Expected Altitude: ";
-  String expTemperatureDisplay = "Expected Temperature: ";
-  String expPingTimeDisplay = "Expected Ping Time: ";
-  String expFinalAltitudeDisplay = expAltitudeDisplay + expectedCM + altitudeDisplayUnits;
-  String expFinalTemperatureDisplay = finalTemperatureDisplay;
-  String expFinalPingTimeDisplay = expPingTimeDisplay + expectedUS + pingTimeDisplayUnits;
-  
-  double pingTimeFactor = expectedUS / uS;
-  String pingTimeFactorDisplay = "Ping Time Factor: ";
-  String finalPingTimeFactor = pingTimeFactorDisplay + pingTimeFactor;
+//  String expAltitudeDisplay = "Expected Altitude: ";
+//  String expTemperatureDisplay = "Expected Temperature: ";
+//  String expPingTimeDisplay = "Expected Ping Time: ";
+//  String expFinalAltitudeDisplay = expAltitudeDisplay + expectedCM + altitudeDisplayUnits;
+//  String expFinalTemperatureDisplay = finalTemperatureDisplay;
+//  String expFinalPingTimeDisplay = expPingTimeDisplay + expectedUS + pingTimeDisplayUnits;
+//  
+//  double pingTimeFactor = expectedUS / uS;
+//  String pingTimeFactorDisplay = "Ping Time Factor: ";
+//  String finalPingTimeFactor = pingTimeFactorDisplay + pingTimeFactor;
 
     lcd.setCursor (0,0); // go to start of 2nd line
       lcd.print(finalAltitudeDisplay);
@@ -88,8 +88,8 @@ void loop()
     Serial.println(expFinalTemperatureDisplay);
     Serial.println(expFinalPingTimeDisplay);
     Serial.println(" ");
-    Serial.println(finalPingTimeFactor);
-    Serial.println(" ");
+//    Serial.println(finalPingTimeFactor);
+//    Serial.println(" ");
     
       delay(1000);
 
