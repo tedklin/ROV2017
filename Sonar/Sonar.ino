@@ -1,5 +1,7 @@
 /**
  * @author tedfoodlin + techzone
+ * 
+ * code for ROV sonar distance sensor underwater
  */
 
 #include <Wire.h>
@@ -46,8 +48,8 @@ void loop()
   Serial.begin(9600);
 
   int temperature = temp.getTemp();
-  double uS = sonar.ping() * 1.0951047207; // Send ping, get ping time in microseconds (uS).
-  unsigned int cm = ((1404.3 + 4.7*temperature - (0.04 * pow(temperature, 2))) * 0.00005114827 * uS) + 5;
+  double uS = sonar.ping() * 1.0951047207; // Send ping, get calibrated ping time in microseconds (uS).
+  unsigned int cm = ((1404.3 + 4.7*temperature - (0.04 * pow(temperature, 2))) * 0.00005114827 * uS) + 5; // Goes through equation to adjust to ping speed underwater
 
 //  double expectedUS = sonar.ping();
 //  unsigned int expectedCM = sonar.convert_cm(expectedUS);
