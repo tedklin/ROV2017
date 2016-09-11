@@ -1,5 +1,5 @@
 /**
- * @author: tedfoodlin
+ * @author tedfoodlin
  * 
  * ROV motor controller v2.0
  * It works!
