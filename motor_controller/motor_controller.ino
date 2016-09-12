@@ -2,7 +2,6 @@
  * @author tedfoodlin
  * 
  * ROV motor controller v2.0
- * It works!
  */
 
 // Declare L298N Dual H-Bridge Motor Controller directly since there is not a library to load.
@@ -61,20 +60,16 @@ pinMode(speedPinA,OUTPUT);
 
 void loop()
 {
-
-/**
- * speeds
- */
   speed0 = analogRead(knob)/2; //vertical y-axis
   speed1 = analogRead(knob1)/2; //left and right y-axis
   speed2 = analogRead(knob2)/2; //left and right x-axis
-
-// note: all turning is with regards to the center of the robot
-// everything is inverted, so the joystick controls the robot based on the camera view
-/**
- * right and left motor
- */
-  {
+  
+  // note: all turning is with regards to the center of the robot
+  // everything is inverted, so the joystick controls the robot based on the camera view
+  
+  /**
+   * right and left motors
+   */
     // if y-axis power is at resting state (for the sake of brevity we're calling it zero from now on)
     if (speed1 >= 130 and speed1 <= 210)
     {
@@ -101,31 +96,25 @@ void loop()
     {
       allForwards();
     }
-  }
 
-/**
- * vertical motors
- */
-  {
+  /**
+   * vertical motors
+   */
     // if y-axis power is 0
     if (speed0 >= 130 and speed0 <= 210) 
     {
-      // resting
       verticalZero();
     }
     // if y-axis power is negative
     else if (speed0 < 160) 
     {
-      // goes down 
       goDown();
     }
     // if y-axis power is positive
     else if (speed0 > 180) 
     {
-      // goes up
       goUp();
     }
-  }
 }
 
 // motor functions
@@ -188,6 +177,7 @@ void allZero(){
   rightZero();
   leftZero();
 }
+// these can be adjusted based on whether the camera is inverted or not
 void turnLeft(){
   rightForwards();
   leftReverse();

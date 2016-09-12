@@ -1,7 +1,7 @@
 /**
  * @author tedfoodlin + techzone
  * 
- * code for ROV sonar distance sensor underwater
+ * ROV underwater sonar sensor
  */
 
 #include <Wire.h>
