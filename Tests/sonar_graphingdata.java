@@ -1,5 +1,3 @@
-package rov_test;
-
 import java.util.Scanner;
 
 public class sonar_graphingdata {
