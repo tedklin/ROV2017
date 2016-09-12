@@ -33,7 +33,7 @@ void setup() {  // Setup runs once per reset
 // initialize serial communication @ 9600 baud:
 Serial.begin(9600);
 
-//Define L298N Dual H-Bridge Motor Controller Pins
+// Define L298N Dual H-Bridge Motor Controller Pins
 
 pinMode(dir1PinA,OUTPUT);
 pinMode(dir2PinA,OUTPUT);
@@ -70,6 +70,7 @@ void loop()
   speed2 = analogRead(knob2)/2; //left and right x-axis
 
 // note: all turning is with regards to the center of the robot
+// everything is inverted, so the joystick controls the robot based on the camera view
 /**
  * right and left motor
  */
@@ -79,61 +80,26 @@ void loop()
     {
       // if x-axis power is negative (left direction)
       if (speed2 < 160){
-        // set right motor to reverse
-        analogWrite(speedPinA, 255); 
-        digitalWrite(dir1PinB, LOW);
-        digitalWrite(dir2PinB, HIGH);
-        // set left motor to forwards
-        analogWrite(speedPinA, 255);
-        digitalWrite(dir1PinC, HIGH);
-        digitalWrite(dir2PinC, LOW);
+        turnLeft();
       } 
       // if x-axis power is positive (right direction)
       else if (speed2 > 180){
-        // set right motor to forwards
-        analogWrite(speedPinA, 255);
-        digitalWrite(dir1PinB, HIGH);
-        digitalWrite(dir2PinB, LOW);
-        // set left motor to reverse
-        analogWrite(speedPinA, 255); 
-        digitalWrite(dir1PinC, LOW);
-        digitalWrite(dir2PinC, HIGH);
+        turnRight();
       } 
       // if x-axis power is zero
       else if (speed2 >= 140 and speed2 <= 240){
-        // set both motors to 0
-        analogWrite(speedPinA, 0);
-        digitalWrite(dir1PinB, LOW);
-        digitalWrite(dir2PinB, LOW);
-        
-        analogWrite(speedPinA, 0);
-        digitalWrite(dir1PinC, LOW);
-        digitalWrite(dir2PinC, LOW);
+        allZero();
       }
     }
     // if y-axis power is negative
     else if (speed1 < 166)
     {
-      //both reverse
-      analogWrite(speedPinA, 255); 
-      digitalWrite(dir1PinB, LOW);
-      digitalWrite(dir2PinB, HIGH);
-      
-      analogWrite(speedPinA, 255); 
-      digitalWrite(dir1PinC, LOW);
-      digitalWrite(dir2PinC, HIGH);
+      allReverse();
     }
     // if y-axis power is positive
     else if (speed1 > 176)
     {
-      //both forwards
-      analogWrite(speedPinA, 255);
-      digitalWrite(dir1PinB, HIGH);
-      digitalWrite(dir2PinB, LOW);
-            
-      analogWrite(speedPinA, 255);
-      digitalWrite(dir1PinC, HIGH);
-      digitalWrite(dir2PinC, LOW);
+      allForwards();
     }
   }
 
@@ -142,27 +108,92 @@ void loop()
  */
   {
     // if y-axis power is 0
-    if (speed0 >= 130 and speed0 <= 210) // resting
+    if (speed0 >= 130 and speed0 <= 210) 
     {
-      analogWrite(speedPinA, 0);
-      digitalWrite(dir1PinA, LOW);
-      digitalWrite(dir2PinA, LOW);
+      // resting
+      verticalZero();
     }
     // if y-axis power is negative
-    else if (speed0 < 160) // goes down 
+    else if (speed0 < 160) 
     {
-      analogWrite(speedPinA, 255);
-      digitalWrite(dir1PinA, LOW);
-      digitalWrite(dir2PinA, HIGH);
+      // goes down 
+      goDown();
     }
     // if y-axis power is positive
-    else if (speed0 > 180) // goes up
+    else if (speed0 > 180) 
     {
-      analogWrite(speedPinA, 255);
-      digitalWrite(dir1PinA, HIGH);
-      digitalWrite(dir2PinA, LOW);
+      // goes up
+      goUp();
     }
   }
 }
 
+// motor functions
+void rightReverse(){
+  analogWrite(speedPinA, 255); 
+  digitalWrite(dir1PinB, LOW);
+  digitalWrite(dir2PinB, HIGH);
+}
+void rightForwards(){
+  analogWrite(speedPinA, 255);
+  digitalWrite(dir1PinB, HIGH);
+  digitalWrite(dir2PinB, LOW);
+}
+void rightZero(){
+  analogWrite(speedPinA, 0);
+  digitalWrite(dir1PinB, LOW);
+  digitalWrite(dir2PinB, LOW);
+}
+void leftReverse(){
+  analogWrite(speedPinA, 255); 
+  digitalWrite(dir1PinC, LOW);
+  digitalWrite(dir2PinC, HIGH);  
+}
+void leftForwards(){
+  analogWrite(speedPinA, 255);
+  digitalWrite(dir1PinC, HIGH);
+  digitalWrite(dir2PinC, LOW);  
+}
+void leftZero(){
+  analogWrite(speedPinA, 0);
+  digitalWrite(dir1PinC, LOW);
+  digitalWrite(dir2PinC, LOW);  
+}
+void goUp(){
+  analogWrite(speedPinA, 255);
+  digitalWrite(dir1PinA, HIGH);
+  digitalWrite(dir2PinA, LOW);  
+}
+void goDown(){
+  analogWrite(speedPinA, 255);
+  digitalWrite(dir1PinA, LOW);
+  digitalWrite(dir2PinA, HIGH);  
+}
+void verticalZero(){
+  analogWrite(speedPinA, 0);
+  digitalWrite(dir1PinA, LOW);
+  digitalWrite(dir2PinA, LOW);
+}
+
+// motion functions
+void allForwards(){
+  rightForwards();
+  leftForwards();
+}
+void allReverse(){
+  rightReverse();
+  leftReverse();
+}
+void allZero(){
+  rightZero();
+  leftZero();
+}
+void turnLeft(){
+  rightForwards();
+  leftReverse();
+}
+void turnRight(){
+  leftForwards();
+  rightReverse();
+}
 
