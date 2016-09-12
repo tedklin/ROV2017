@@ -119,12 +119,12 @@ void loop()
 
 // motor functions
 void rightReverse(){
-  analogWrite(speedPinA, 255); 
+  analogWrite(speedPinA, 127); 
   digitalWrite(dir1PinB, LOW);
   digitalWrite(dir2PinB, HIGH);
 }
 void rightForwards(){
-  analogWrite(speedPinA, 255);
+  analogWrite(speedPinA, 127);
   digitalWrite(dir1PinB, HIGH);
   digitalWrite(dir2PinB, LOW);
 }
@@ -134,12 +134,12 @@ void rightZero(){
   digitalWrite(dir2PinB, LOW);
 }
 void leftReverse(){
-  analogWrite(speedPinA, 255); 
+  analogWrite(speedPinA, 127); 
   digitalWrite(dir1PinC, LOW);
   digitalWrite(dir2PinC, HIGH);  
 }
 void leftForwards(){
-  analogWrite(speedPinA, 255);
+  analogWrite(speedPinA, 127);
   digitalWrite(dir1PinC, HIGH);
   digitalWrite(dir2PinC, LOW);  
 }
