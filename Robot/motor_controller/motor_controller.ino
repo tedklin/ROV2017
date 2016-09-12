@@ -71,7 +71,7 @@ void loop()
    * right and left motors
    */
     // if y-axis power is at resting state (for the sake of brevity we're calling it zero from now on)
-    if (speed1 >= 130 and speed1 <= 210)
+    if (speed1 >= 100 and speed1 <= 240)
     {
       // if x-axis power is negative (left direction)
       if (speed2 < 160){
@@ -87,12 +87,12 @@ void loop()
       }
     }
     // if y-axis power is negative
-    else if (speed1 < 166)
+    else if (speed1 < 150)
     {
       allReverse();
     }
     // if y-axis power is positive
-    else if (speed1 > 176)
+    else if (speed1 > 190)
     {
       allForwards();
     }
