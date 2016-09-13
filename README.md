@@ -1,11 +1,6 @@
 # 45C Robotics
 MATE ROV 2017 Code
 
-##AUTHORS
-Ted Lin </br> 
-Joseph Ho </br>
-Isaac Neil-Zanoria </br>
-
 ##DRIVER INFORMATION
 
 ###DRIVE
