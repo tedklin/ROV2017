@@ -1,8 +1,8 @@
 /**
-author: Joseph Ho (jh10422)
-ROV servo claw that opens when button pressed
-no burnout gg
-Use 1K Ohm resistor
+ * @author Jiajer Ho (jh10422)
+ * ROV Servo Claw 2.0
+ * Use 1K Ohm resistor
+ * Opens when button pressed, close when button not pressed
 */
 #include <Servo.h>
 int button1 = 4; //button pin, connect to ground to move servo

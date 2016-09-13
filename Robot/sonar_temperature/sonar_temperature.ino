@@ -1,7 +1,6 @@
 /**
  * @author tedfoodlin
- * @author techzone
- * 
+ * @author Jiajer Ho (jh10422)
  * Underwater Sonar Sensor v1.2
  */
 #include <Wire.h>

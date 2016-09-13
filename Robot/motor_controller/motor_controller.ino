@@ -3,10 +3,9 @@
  * 
  * ROV motor controller v2.0
  */
-// Hey Ted
 // Declare L298N Dual H-Bridge Motor Controller directly since there is not a library to load.
-
 // Motors
+
 int dir1PinA = 2; // vertical motors
 int dir2PinA = 3; // vertical motors
 int dir1PinB = 4; // right motor
