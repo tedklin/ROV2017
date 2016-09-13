@@ -87,7 +87,7 @@ void loop()
   }
   
   // note: all turning is with regards to the center of the robot
-  // everything is inverted
+  // everything is inverted (but we don't know which way)
   // the joystick controls the robot based on the camera view 
   // this is because the driver can't see the actual robot in water, they have to rely on the camera vision
   
