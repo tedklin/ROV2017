@@ -1,4 +1,9 @@
-
+/**
+ * @author tedfoodlin
+ * @author techzone
+ * 
+ * Underwater Sonar Sensor v1.2
+ */
 #include <Wire.h>
 #include <LCD.h>
 #include <LiquidCrystal_I2C.h>
@@ -50,15 +55,6 @@ void loop()
 {
   
 Serial.begin(9600);
- // for (pos = 0; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
-    // in steps of 1 degree
-  // myservo.write(pos);              // tell servo to go to position in variable 'pos'
- //  delay(5);                       // waits 15ms for the servo to reach the position
-//  }
- // for (pos = 180; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
-  //  myservo.write(pos);              // tell servo to go to position in variable 'pos'
-  // delay(5);                       // waits 15ms for the servo to reach the position
- // }
 
   numberOfTests = numberOfTests + 1;
      String testNumberDisplay = "Test Number: ";
@@ -67,8 +63,8 @@ Serial.begin(9600);
      Serial.println(" ");
      
   int temperature = temp.getTemp();
-  double uS = sonar.ping() * 1.0951047207; // Send ping, get ping time in microseconds (uS).
-  unsigned int cm = ((1404.3 + 4.7*temperature - (0.04 * pow(temperature, 2))) * 0.00005114827 * uS) + 5;
+  double uS = sonar.ping() * 1.0951047207; // Send ping, get calibrated ping time in microseconds (uS).
+  unsigned int cm = ((1404.3 + 4.7*temperature - (0.04 * pow(temperature, 2))) * 0.00005114827 * uS) + 5; //gg magic calculations
 
   double expectedUS = sonar.ping();
   unsigned int expectedCM = sonar.convert_cm(expectedUS);
@@ -109,9 +105,9 @@ Serial.begin(9600);
     Serial.println(expFinalTemperatureDisplay);
     Serial.println(expFinalPingTimeDisplay);
     Serial.println(" ");
-//    Serial.println(finalPingTimeFactorDisplay);
-//    Serial.println(" ");
+    Serial.println(finalPingTimeFactorDisplay);
+    Serial.println(" ");
     
-      delay(10);
+    delay(10);
 
 }
