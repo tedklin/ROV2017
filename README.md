@@ -21,6 +21,7 @@ Articulation we have right now:
   Claw
   Temperature sensor
   Sonar sensor
+  Two cameras
 ```
 
 ##REFERENCES
