@@ -1,12 +1,13 @@
+/**
+* @author - tedfoodlin
+* 
+* all unnecessary commments r deemed necessary by Joseph Ho 2016
+* ROV Sonar sensor testing 
+*/
+
 import java.util.Scanner;
 
 public class sonar_graphingdata {
-	
-	/**
-	 * @author - tedfoodlin
-	 * 
-	 * all unnecessary commments r deemed necessary by Joseph Ho 2016
-	 */
 	
 	public static double convertMetersPerSecondToCmPerMicrosecond = 0.0001; //this is the conversion factor from m/s to cm/microsecond
 	public static double originalPingSpeed = 0.03508771929 / 2; //this is the ping speed from the sonar sensor (1cm/57microseconds to be exact)
