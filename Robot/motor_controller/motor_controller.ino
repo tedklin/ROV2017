@@ -70,76 +70,76 @@ void loop()
   /**
    * right and left motors
    */
-    // if y-axis power is at resting state (for the sake of brevity we're calling it zero from now on)
-    if (speed1 >= 100 and speed1 <= 240)
-    {
-      // if x-axis power is negative (left direction)
-      if (speed2 < 160){
-        turnLeft();
-      } 
-      // if x-axis power is positive (right direction)
-      else if (speed2 > 180){
-        turnRight();
-      } 
-      // if x-axis power is zero
-      else if (speed2 >= 140 and speed2 <= 240){
-        allZero();
-      }
-    }
     // if y-axis power is negative
-    else if (speed1 < 150)
+    if (speed1 < 130)
     {
       allReverse();
     }
     // if y-axis power is positive
-    else if (speed1 > 190)
+    else if (speed1 > 210)
     {
       allForwards();
+    } 
+    // if y-axis power is at resting state (for the sake of brevity we're calling it zero from now on)
+    else 
+    {
+      // if x-axis power is negative (left direction)
+      if (speed2 < 150){
+        turnLeft();
+      } 
+      // if x-axis power is positive (right direction)
+      else if (speed2 > 190){
+        turnRight();
+      } 
+      // if x-axis power is zero 
+      else {
+        allZero();
+      }
     }
 
   /**
    * vertical motors
    */
-    // if y-axis power is 0
-    if (speed0 >= 130 and speed0 <= 210) 
-    {
-      verticalZero();
-    }
     // if y-axis power is negative
-    else if (speed0 < 160) 
+    if (speed0 < 130) 
     {
       goDown();
     }
     // if y-axis power is positive
-    else if (speed0 > 180) 
+    else if (speed0 > 210) 
     {
       goUp();
     }
+    // if y-axis power is zero
+    else 
+    {
+      verticalZero();
+    }
 }
 
-// motor functions
+// lateral motor functions
 void rightReverse(){
-  analogWrite(speedPinA, 127); 
+  analogWrite(speedPinA, 255); 
   digitalWrite(dir1PinB, LOW);
   digitalWrite(dir2PinB, HIGH);
 }
 void rightForwards(){
-  analogWrite(speedPinA, 127);
+  analogWrite(speedPinA, 255);
   digitalWrite(dir1PinB, HIGH);
   digitalWrite(dir2PinB, LOW);
 }
 void rightZero(){
-  analogWrite(speedPinA, 0);
+  analogWrite(speedPinA, 255);
   digitalWrite(dir1PinB, LOW);
   digitalWrite(dir2PinB, LOW);
 }
 void leftReverse(){
-  analogWrite(speedPinA, 127); 
+  analogWrite(speedPinA, 255); 
   digitalWrite(dir1PinC, LOW);
   digitalWrite(dir2PinC, HIGH);  
 }
 void leftForwards(){
-  analogWrite(speedPinA, 127);
+  analogWrite(speedPinA, 255);
   digitalWrite(dir1PinC, HIGH);
   digitalWrite(dir2PinC, LOW);  
 }
@@ -148,6 +148,8 @@ void leftZero(){
   digitalWrite(dir1PinC, LOW);
   digitalWrite(dir2PinC, LOW);  
 }
+
+// vertical motor functions and motion 
 void goUp(){
   analogWrite(speedPinA, 255);
   digitalWrite(dir1PinA, HIGH);
@@ -164,7 +166,7 @@ void verticalZero(){
   digitalWrite(dir2PinA, LOW);
 }
 
-// motion functions
+// lateral motion functions
 void allForwards(){
   rightForwards();
   leftForwards();
