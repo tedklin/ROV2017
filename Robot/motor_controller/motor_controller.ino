@@ -65,18 +65,20 @@ void loop()
   speed2 = analogRead(knob2)/2; //left and right x-axis
   
   // note: all turning is with regards to the center of the robot
-  // everything is inverted, so the joystick controls the robot based on the camera view
+  // everything is inverted
+  // the joystick controls the robot based on the camera view 
+  // this is because the driver can't see the actual robot in water, they have to rely on the camera vision
   
   /**
    * right and left motors
    */
     // if y-axis power is negative
-    if (speed1 < 130)
+    if (speed1 < 50)
     {
       allReverse();
     }
     // if y-axis power is positive
-    else if (speed1 > 210)
+    else if (speed1 > 300)
     {
       allForwards();
     } 
@@ -84,11 +86,11 @@ void loop()
     else 
     {
       // if x-axis power is negative (left direction)
-      if (speed2 < 150){
+      if (speed2 < 50){
         turnLeft();
       } 
       // if x-axis power is positive (right direction)
-      else if (speed2 > 190){
+      else if (speed2 > 300){
         turnRight();
       } 
       // if x-axis power is zero 
@@ -101,12 +103,12 @@ void loop()
    * vertical motors
    */
     // if y-axis power is negative
-    if (speed0 < 130) 
+    if (speed0 < 50) 
     {
       goDown();
     }
     // if y-axis power is positive
-    else if (speed0 > 210) 
+    else if (speed0 > 300) 
     {
       goUp();
     }
