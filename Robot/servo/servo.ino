@@ -1,6 +1,9 @@
-//zoomkat servo button test 7-30-2011
-//Powering a servo from the arduino usually *DOES NOT WORK*.
-
+/**
+author: Joseph Ho (jh10422)
+ROV servo claw that opens when button pressed
+no burnout gg
+Use 1K Ohm resistor
+*/
 #include <Servo.h>
 int button1 = 4; //button pin, connect to ground to move servo
 int press1 = 0;
