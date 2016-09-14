@@ -1,7 +1,7 @@
 /**
  * @author tedfoodlin
  * 
- * ROV motor controller v2.0
+ * ROV motor controller v2.2
  */
 // Declare L298N Dual H-Bridge Motor Controller directly since there is not a library to load.
 // Motors
