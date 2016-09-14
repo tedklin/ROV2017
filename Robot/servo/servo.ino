@@ -1,5 +1,6 @@
 /**
  * @author Jiajer Ho (jh10422)
+ *  
  * ROV Servo Claw 2.0
 */
 // Use 1K Ohm resistor
