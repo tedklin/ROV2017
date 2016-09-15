@@ -1,8 +1,10 @@
 /**
  * @author tedfoodlin
  * @author Jiajer Ho (jh10422)
+ * 
  * Underwater Sonar Sensor v1.2
  */
+ 
 #include <Wire.h>
 #include <LCD.h>
 #include <LiquidCrystal_I2C.h>
@@ -93,10 +95,9 @@ void reportState()
   String finalPingTimeDisplay = pingTimeDisplay + uS + pingTimeDisplayUnits;
 
   String expAltitudeDisplay = "Expected Altitude: ";
-  String expTemperatureDisplay = "Expected Temperature: ";
   String expPingTimeDisplay = "Expected Ping Time: ";
+  String altitudeDisplayUnits = " cm";
   String expFinalAltitudeDisplay = expAltitudeDisplay + expectedCM + altitudeDisplayUnits;
-  String expFinalTemperatureDisplay = finalTemperatureDisplay;
   String expFinalPingTimeDisplay = expPingTimeDisplay + expectedUS + pingTimeDisplayUnits;
 
   double pingTimeFactor = expectedUS / uS;
