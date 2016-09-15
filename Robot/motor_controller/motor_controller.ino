@@ -110,16 +110,20 @@ void loop()
       if (speed2 < 50){
         if (inverted == false){
           turnLeft();
+          Serial.println("Turning left");
         } else if (inverted == true) {
           turnRight();
+          Serial.println("Turning left");
         }
       } 
       // if x-axis power is positive (right direction)
       else if (speed2 > 300){
         if (inverted == false){
           turnRight();
+          Serial.println("Turning right");
         } else if (inverted == true) {
           turnLeft();
+          Serial.println("Turning right");
         }
       } 
       // if x-axis power is zero 
@@ -219,11 +223,9 @@ void allZero(){
 void turnLeft(){
   rightForwards();
   leftReverse();
-  Serial.println("Turning left");
 }
 void turnRight(){
   leftForwards();
   rightReverse();
-  Serial.println("Turning right");
 }
 
