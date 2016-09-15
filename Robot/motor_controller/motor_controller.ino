@@ -1,12 +1,11 @@
 /**
  * @author tedfoodlin
  * 
- * ROV motor controller v2.0
+ * ROV motor controller v2.2
  */
-
 // Declare L298N Dual H-Bridge Motor Controller directly since there is not a library to load.
-
 // Motors
+
 int dir1PinA = 2; // vertical motors
 int dir2PinA = 3; // vertical motors
 int dir1PinB = 4; // right motor
@@ -23,25 +22,31 @@ const int in2 =  5;
 const int knob = 0; // Pin for Speed
 const int knob1 = 1; // Pin for Speed
 const int knob2 = 2; // Pin for Speed
-int speed0 = 170; // Speed setpoint
-int speed1 = 170; // Speed setpoint
-int speed2 = 170; // Speed setpoint
 
+// Speed setpoints
+int speed0 = 170; 
+int speed1 = 170; 
+int speed2 = 170; 
+
+// Inversion (set to default at beginning)
+char inversion = '1';
+bool inverted = false;
 
 void setup() {  // Setup runs once per reset
 // initialize serial communication @ 9600 baud:
-Serial.begin(9600);
+  Serial.begin(9600);
+// ask for inversion
+  Serial.println("Enter 1 or 2 to invert right and left turning.");
 
+// Define L298N Dual H-Bridge Motor Controller Pins
 
-
-pinMode(dir1PinA,OUTPUT);
-pinMode(dir2PinA,OUTPUT);
-pinMode(dir1PinB,OUTPUT);
-pinMode(dir2PinB,OUTPUT);
-pinMode(dir1PinC,OUTPUT);
-pinMode(dir2PinC,OUTPUT);
-pinMode(speedPinA,OUTPUT);
-
+  pinMode(dir1PinA,OUTPUT);
+  pinMode(dir2PinA,OUTPUT);
+  pinMode(dir1PinB,OUTPUT);
+  pinMode(dir2PinB,OUTPUT);
+  pinMode(dir1PinC,OUTPUT);
+  pinMode(dir2PinC,OUTPUT);
+  pinMode(speedPinA,OUTPUT);
 
 // Setup serial port
   Serial.begin (9600);
@@ -60,12 +65,30 @@ pinMode(speedPinA,OUTPUT);
 
 void loop()
 {
+  // Joystick power
   speed0 = analogRead(knob)/2; //vertical y-axis
   speed1 = analogRead(knob1)/2; //left and right y-axis
   speed2 = analogRead(knob2)/2; //left and right x-axis
+
+  // check for inversion
+  if (Serial.available()){
+    inversion = Serial.read();
+    if (inversion == '2'){
+      Serial.println("INVERSION MODE 2");
+      inverted = true;
+    } else {
+      Serial.println("INVERSION MODE 1");
+      inverted = false;
+    }
+  } else {
+    Serial.println("INVERSION MODE 1");
+    inverted = false;
+  }
   
   // note: all turning is with regards to the center of the robot
-  // everything is inverted, so the joystick controls the robot based on the camera view
+  // everything is inverted (but we don't know which way)
+  // the joystick controls the robot based on the camera view 
+  // this is because the driver can't see the actual robot in water, they have to rely on the camera vision
   
   /**
    * right and left motors
@@ -85,11 +108,19 @@ void loop()
     {
       // if x-axis power is negative (left direction)
       if (speed2 < 50){
-        turnLeft();
+        if (inverted == false){
+          turnLeft();
+        } else if (inverted == true) {
+          turnRight();
+        }
       } 
       // if x-axis power is positive (right direction)
       else if (speed2 > 300){
-        turnRight();
+        if (inverted == false){
+          turnRight();
+        } else if (inverted == true) {
+          turnLeft();
+        }
       } 
       // if x-axis power is zero 
       else {
@@ -115,6 +146,23 @@ void loop()
     {
       verticalZero();
     }
+}
+
+// vertical motor functions and motion 
+void goUp(){
+  analogWrite(speedPinA, 255);
+  digitalWrite(dir1PinA, HIGH);
+  digitalWrite(dir2PinA, LOW);  
+}
+void goDown(){
+  analogWrite(speedPinA, 255);
+  digitalWrite(dir1PinA, LOW);
+  digitalWrite(dir2PinA, HIGH);  
+}
+void verticalZero(){
+  analogWrite(speedPinA, 0);
+  digitalWrite(dir1PinA, LOW);
+  digitalWrite(dir2PinA, LOW);
 }
 
 // lateral motor functions
@@ -149,23 +197,6 @@ void leftZero(){
   digitalWrite(dir2PinC, LOW);  
 }
 
-// vertical motor functions and motion 
-void goUp(){
-  analogWrite(speedPinA, 255);
-  digitalWrite(dir1PinA, HIGH);
-  digitalWrite(dir2PinA, LOW);  
-}
-void goDown(){
-  analogWrite(speedPinA, 255);
-  digitalWrite(dir1PinA, LOW);
-  digitalWrite(dir2PinA, HIGH);  
-}
-void verticalZero(){
-  analogWrite(speedPinA, 0);
-  digitalWrite(dir1PinA, LOW);
-  digitalWrite(dir2PinA, LOW);
-}
-
 // lateral motion functions
 void allForwards(){
   rightForwards();
@@ -179,7 +210,6 @@ void allZero(){
   rightZero();
   leftZero();
 }
-// these can be adjusted based on whether the camera is inverted or not
 void turnLeft(){
   rightForwards();
   leftReverse();
