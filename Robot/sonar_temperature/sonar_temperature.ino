@@ -86,6 +86,7 @@ void reportState()
 
   double expectedUS = sonar.ping();
   unsigned int expectedCM = sonar.convert_cm(expectedUS);
+  double uS = sonar.ping() * 1.0951047207; // Send ping, get calibrated ping time in microseconds (uS).
 
   String pingTimeDisplay = "Ping Time: ";
   String pingTimeDisplayUnits = " uS";
