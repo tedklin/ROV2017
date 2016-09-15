@@ -47,9 +47,6 @@ void setup() {  // Setup runs once per reset
   pinMode(dir1PinC,OUTPUT);
   pinMode(dir2PinC,OUTPUT);
   pinMode(speedPinA,OUTPUT);
-
-// Setup serial port
-  Serial.begin (9600);
   
 // Output pin configuration 3
   pinMode (brochePWM, OUTPUT);
@@ -60,7 +57,10 @@ void setup() {  // Setup runs once per reset
   analogWrite (brochePWM, 0);
   digitalWrite (in1, LOW);
   digitalWrite (in2, LOW);
-
+  
+  Serial.println(" ");
+  Serial.println("Motors enabled");
+  Serial.println(" ");
 }
 
 void loop()
@@ -153,16 +153,19 @@ void goUp(){
   analogWrite(speedPinA, 255);
   digitalWrite(dir1PinA, HIGH);
   digitalWrite(dir2PinA, LOW);  
+  Serial.println("Going up");
 }
 void goDown(){
   analogWrite(speedPinA, 255);
   digitalWrite(dir1PinA, LOW);
-  digitalWrite(dir2PinA, HIGH);  
+  digitalWrite(dir2PinA, HIGH); 
+  Serial.println("Going down"); 
 }
 void verticalZero(){
   analogWrite(speedPinA, 0);
   digitalWrite(dir1PinA, LOW);
   digitalWrite(dir2PinA, LOW);
+  Serial.println("No vertical movement");
 }
 
 // lateral motor functions
@@ -201,21 +204,26 @@ void leftZero(){
 void allForwards(){
   rightForwards();
   leftForwards();
+  Serial.println("Forwards");
 }
 void allReverse(){
   rightReverse();
   leftReverse();
+  Serial.println("Reverse");
 }
 void allZero(){
   rightZero();
   leftZero();
+  Serial.println("No lateral movement");
 }
 void turnLeft(){
   rightForwards();
   leftReverse();
+  Serial.println("Turning left");
 }
 void turnRight(){
   leftForwards();
   rightReverse();
+  Serial.println("Turning right");
 }
 
