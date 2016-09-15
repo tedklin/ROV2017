@@ -65,6 +65,11 @@ void setup() {
   Serial.println("Enter 1 or 2 to invert right and left turning.");
 }
 
+/**
+ * note: all turning is with regards to the center of the robot
+ * the joystick controls the robot based on the camera view
+ * this is because the driver can't see the actual robot in water, they have to rely on the camera vision
+ */
 void loop()
 {
   // Joystick power
@@ -86,72 +91,67 @@ void loop()
     Serial.println("INVERSION MODE 1");
     inverted = false;
   }
-  
-  // note: all turning is with regards to the center of the robot
-  // everything is inverted (but we don't know which way)
-  // the joystick controls the robot based on the camera view 
-  // this is because the driver can't see the actual robot in water, they have to rely on the camera vision
-  
-  /**
-   * right and left motors
-   */
-    // if y-axis power is negative
-    if (speed1 < 50)
-    {
-      allReverse();
-    }
-    // if y-axis power is positive
-    else if (speed1 > 300)
-    {
-      allForwards();
-    } 
-    // if y-axis power is at resting state (for the sake of brevity we're calling it zero from now on)
-    else 
-    {
-      // if x-axis power is negative (left direction)
-      if (speed2 < 50){
-        if (inverted == false){
-          turnLeft();
-          Serial.println("Turning left");
-        } else if (inverted == true) {
-          turnRight();
-          Serial.println("Turning left");
-        }
-      } 
-      // if x-axis power is positive (right direction)
-      else if (speed2 > 300){
-        if (inverted == false){
-          turnRight();
-          Serial.println("Turning right");
-        } else if (inverted == true) {
-          turnLeft();
-          Serial.println("Turning right");
-        }
-      } 
-      // if x-axis power is zero 
-      else {
-        allZero();
+   
+/**
+ * right and left motors
+ */
+  // if y-axis power is negative
+  if (speed1 < 50)
+  {
+    allReverse();
+  }
+  // if y-axis power is positive
+  else if (speed1 > 300)
+  {
+    allForwards();
+  } 
+  // if y-axis power is at resting state (for the sake of brevity we're calling it zero from now on)
+  else 
+  {
+    // if x-axis power is negative (left direction)
+    if (speed2 < 50){
+      if (inverted == false){
+        turnLeft();
+        Serial.println("Turning left");
+      } else if (inverted == true) {
+        turnRight();
+        Serial.println("Turning left");
       }
+    } 
+    // if x-axis power is positive (right direction)
+    else if (speed2 > 300){
+      if (inverted == false){
+        turnRight();
+        Serial.println("Turning right");
+      } else if (inverted == true) {
+        turnLeft();
+        Serial.println("Turning right");
+      }
+    } 
+    // if x-axis power is zero 
+    else {
+      allZero();
     }
+  }
 
-  /**
-   * vertical motors
-   */
-    // if y-axis power is negative
-    if (speed0 < 50) 
-    {
-      goDown();
-    }
-    // if y-axis power is positive
-    else if (speed0 > 300) 
-    {
-      goUp();
-    }
-    // if y-axis power is zero
-    else 
-    {
-      verticalZero();
-    }
+/**
+ * vertical motors
+ */
+  // if y-axis power is negative
+  if (speed0 < 50) 
+  {
+    goDown();
+  }
+  // if y-axis power is positive
+  else if (speed0 > 300) 
+  {
+    goUp();
+  }
+  // if y-axis power is zero
+  else 
+  {
+    verticalZero();
+  }
 }
 
 // vertical motor functions and motion 
