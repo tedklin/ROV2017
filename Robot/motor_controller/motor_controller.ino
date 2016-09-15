@@ -32,11 +32,9 @@ int speed2 = 170;
 char inversion = '1';
 bool inverted = false;
 
-void setup() {  // Setup runs once per reset
-// initialize serial communication @ 9600 baud:
+void setup() {
+  // initialize serial communication
   Serial.begin(9600);
-// ask for inversion
-  Serial.println("Enter 1 or 2 to invert right and left turning.");
 
 // Define L298N Dual H-Bridge Motor Controller Pins
 
@@ -48,19 +46,23 @@ void setup() {  // Setup runs once per reset
   pinMode(dir2PinC,OUTPUT);
   pinMode(speedPinA,OUTPUT);
   
-// Output pin configuration 3
+  // Output pin configuration 3
   pinMode (brochePWM, OUTPUT);
   pinMode (in1, OUTPUT);
   pinMode (in2, OUTPUT);;
   
-// Inhibits the motor
+  // Inhibits the motor
   analogWrite (brochePWM, 0);
   digitalWrite (in1, LOW);
   digitalWrite (in2, LOW);
-  
+
+  delay(1500);
   Serial.println(" ");
   Serial.println("Motors enabled");
   Serial.println(" ");
+  
+  // ask for inversion
+  Serial.println("Enter 1 or 2 to invert right and left turning.");
 }
 
 void loop()

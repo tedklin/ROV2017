@@ -31,7 +31,7 @@ LiquidCrystal_I2C lcd(I2C_ADDR,En_pin,Rw_pin,Rs_pin,D4_pin,D5_pin,D6_pin,D7_pin)
 
 void setup()
 {
-  // setup serial monitor
+  // initialize serial communication
   Serial.begin(9600);
   
   lcd.begin (12,2);
@@ -42,7 +42,7 @@ void setup()
 
   lcd.home (); // go home on LCD
 
-  delay(1000);
+  delay(1500);
   Serial.println(" ");
   Serial.println("Sonar and temperature sensors enabled!");
   Serial.println(" ");
