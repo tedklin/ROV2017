@@ -28,17 +28,13 @@ Thermistor temp(0);
 NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);// NewPing setup of pins and maximum distance.
 
 LiquidCrystal_I2C lcd(I2C_ADDR,En_pin,Rw_pin,Rs_pin,D4_pin,D5_pin,D6_pin,D7_pin);
-//Servo myservo;  // create servo object to control a servo
-// twelve servo objects can be created on most boards
-
-//int pos = 0;    // variable to store the servo position
-int numberOfTests = 0;
 
 void setup()
 {
-  // myservo.attach(9);  // attaches the servo on pin 9 to the servo object
-
-  lcd.begin (12,2); // <<-- our LCD is a 20x4, change for your LCD if needed
+  // setup serial monitor
+  Serial.begin(9600);
+  
+  lcd.begin (12,2);
  
   // LCD Backlight ON
   lcd.setBacklightPin(BACKLIGHT_PIN,POSITIVE);
@@ -46,27 +42,17 @@ void setup()
 
   lcd.home (); // go home on LCD
 
-float reading;
- 
+  delay(1000);
+  Serial.println(" ");
+  Serial.println("Sonar and temperature sensors enabled!");
+  Serial.println(" ");
 }
 
 void loop()
 {
-  
-Serial.begin(9600);
-
-  numberOfTests = numberOfTests + 1;
-     String testNumberDisplay = "Test Number: ";
-     String finalTestNumberDisplay = testNumberDisplay + numberOfTests;
-     Serial.println(finalTestNumberDisplay);
-     Serial.println(" ");
-     
   int temperature = temp.getTemp();
   double uS = sonar.ping() * 1.0951047207; // Send ping, get calibrated ping time in microseconds (uS).
   unsigned int cm = ((1404.3 + 4.7*temperature - (0.04 * pow(temperature, 2))) * 0.00005114827 * uS) + 5; //gg magic calculations
-
-  double expectedUS = sonar.ping();
-  unsigned int expectedCM = sonar.convert_cm(expectedUS);
 
   String altitudeDisplay = "Altitude: ";
   String altitudeDisplayUnits = " cm";
@@ -74,6 +60,33 @@ Serial.begin(9600);
   String temperatureDisplay = "Temperature: ";
   String temperatureDisplayUnits = "C";
   String finalTemperatureDisplay = temperatureDisplay + temperature + temperatureDisplayUnits;
+
+    lcd.setCursor (0,0); // go to start of 2nd line
+      lcd.print(finalAltitudeDisplay);
+        delay(500);
+    lcd.setCursor (0,1); // go to start of 2nd line
+      lcd.print(finalTemperatureDisplay);
+        delay(500);
+        
+    Serial.println(finalAltitudeDisplay);
+    Serial.println(finalTemperatureDisplay);
+//  reportState();
+
+}
+
+// testing
+int numberOfTests = 0;
+void reportState()
+{
+  numberOfTests = numberOfTests + 1;
+  String testNumberDisplay = "Test Number: ";
+  String finalTestNumberDisplay = testNumberDisplay + numberOfTests;
+  Serial.println(finalTestNumberDisplay);
+  Serial.println(" ");
+
+  double expectedUS = sonar.ping();
+  unsigned int expectedCM = sonar.convert_cm(expectedUS);
+
   String pingTimeDisplay = "Ping Time: ";
   String pingTimeDisplayUnits = " uS";
   String finalPingTimeDisplay = pingTimeDisplay + uS + pingTimeDisplayUnits;
@@ -85,28 +98,19 @@ Serial.begin(9600);
   String expFinalTemperatureDisplay = finalTemperatureDisplay;
   String expFinalPingTimeDisplay = expPingTimeDisplay + expectedUS + pingTimeDisplayUnits;
 
-//  double pingTimeFactor = expectedUS / uS;
-//  String pingTimeFactorDisplay = "Ping Time Factor: ";
-//  String finalPingTimeFactorDisplay = pingTimeFactorDisplay + pingTimeFactor;
+  double pingTimeFactor = expectedUS / uS;
+  String pingTimeFactorDisplay = "Ping Time Factor: ";
+  String finalPingTimeFactorDisplay = pingTimeFactorDisplay + pingTimeFactor;
 
-    lcd.setCursor (0,0); // go to start of 2nd line
-      lcd.print(finalAltitudeDisplay);
-        delay(500);
-    lcd.setCursor (0,1); // go to start of 2nd line
-      lcd.print(finalTemperatureDisplay);
-        delay(500);
-        
-    Serial.println(finalAltitudeDisplay);
-    Serial.println(finalTemperatureDisplay);
-    Serial.println(finalPingTimeDisplay);
-    Serial.println(" ");
-    Serial.println(expFinalAltitudeDisplay);
-    Serial.println(expFinalTemperatureDisplay);
-    Serial.println(expFinalPingTimeDisplay);
-    Serial.println(" ");
-    Serial.println(finalPingTimeFactorDisplay);
-    Serial.println(" ");
-    
-    delay(10);
-
+  Serial.println(finalPingTimeDisplay);
+  Serial.println(" ");
+  Serial.println(expFinalAltitudeDisplay);
+  Serial.println(expFinalTemperatureDisplay);
+  Serial.println(expFinalPingTimeDisplay);
+  Serial.println(" ");
+  Serial.println(finalPingTimeFactorDisplay);
+  Serial.println(" ");
+  
+  delay(10);
 }
+
