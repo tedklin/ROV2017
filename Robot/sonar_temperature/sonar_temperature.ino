@@ -23,7 +23,7 @@ Thermistor temp(0);
 #define D7_pin  7
 int sensorPin = 1;
 int buttonpin1 = 10; // button pin for alarm
- int press1 = 0;
+int press1 = 0;
 int buzzer = A5; // pin for buzzer  alarm
 #define ECHO_PIN     11  // Arduino pin tied to echo pin on the ultrasonic sensor.
 #define TRIGGER_PIN  12  // Arduino pin tied to trigger pin on the ultrasonic sensor.
@@ -59,10 +59,10 @@ void loop()
 {
   
   int reading = analogRead(sensorPin);  
- 
- // converting that reading to voltage, for 3.3v arduino use 3.3
- float voltage = reading * 5.0;
- voltage /= 1024.0; 
+  
+  // converting that reading to voltage, for 3.3v arduino use 3.3
+  float voltage = reading * 5.0;
+  voltage /= 1024.0; 
   int temperature = temp.getTemp();
   double uS = sonar.ping() * 1.0951047207; // Send ping, get calibrated ping time in microseconds (uS).
   unsigned int cm = ((1404.3 + 4.7*temperature - (0.04 * pow(temperature, 2))) * 0.00005114827 * uS) + 5; //gg magic calculations
