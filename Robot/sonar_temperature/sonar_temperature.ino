@@ -21,7 +21,7 @@ Thermistor temp(0);
 #define D5_pin  5
 #define D6_pin  6
 #define D7_pin  7
-
+int sensorPin = 1;
 #define ECHO_PIN     11  // Arduino pin tied to echo pin on the ultrasonic sensor.
 #define TRIGGER_PIN  12  // Arduino pin tied to trigger pin on the ultrasonic sensor.
 #define MAX_DISTANCE 500 // Maximum distance we want to ping for (in centimeters). Maximum sensor distance is rated at 400-500cm.
@@ -52,6 +52,17 @@ void setup()
 
 void loop()
 {
+   int reading = analogRead(sensorPin);  
+ 
+ // converting that reading to voltage, for 3.3v arduino use 3.3
+ float voltage = reading * 5.0;
+ voltage /= 1024.0; 
+ 
+ // print out the voltage
+ Serial.print(voltage); Serial.println(" volts");
+ 
+ // now print out the temperature
+ float temperatureC = (voltage - 0.5) * 100 ; 
   int temperature = temp.getTemp();
   double uS = sonar.ping() * 1.0951047207; // Send ping, get calibrated ping time in microseconds (uS).
   unsigned int cm = ((1404.3 + 4.7*temperature - (0.04 * pow(temperature, 2))) * 0.00005114827 * uS) + 5; //gg magic calculations
@@ -59,7 +70,7 @@ void loop()
   String altitudeDisplay = "Altitude: ";
   String altitudeDisplayUnits = " cm";
   String finalAltitudeDisplay = altitudeDisplay + cm + altitudeDisplayUnits;
-  String temperatureDisplay = "Temperature: ";
+  String temperatureDisplay = "";
   String temperatureDisplayUnits = "C";
   String finalTemperatureDisplay = temperatureDisplay + temperature + temperatureDisplayUnits;
 
@@ -68,6 +79,8 @@ void loop()
         delay(500);
     lcd.setCursor (0,1); // go to start of 2nd line
       lcd.print(finalTemperatureDisplay);
+        lcd.setCursor (5,1);
+      lcd.print(temperatureC);
         delay(500);
         
     Serial.println(finalAltitudeDisplay);
@@ -107,7 +120,7 @@ void reportState()
   Serial.println(finalPingTimeDisplay);
   Serial.println(" ");
   Serial.println(expFinalAltitudeDisplay);
-  Serial.println(expFinalTemperatureDisplay);
+
   Serial.println(expFinalPingTimeDisplay);
   Serial.println(" ");
   Serial.println(finalPingTimeFactorDisplay);
