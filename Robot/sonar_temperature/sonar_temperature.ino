@@ -3,8 +3,8 @@
  * @author Jiajer Ho (jh10422)
  * 
  * Underwater Sonar Sensor v1.2
- */
- 
+*/
+
 #include <Wire.h>
 #include <LCD.h>
 #include <LiquidCrystal_I2C.h>
@@ -22,6 +22,12 @@ Thermistor temp(0);
 #define D6_pin  6
 #define D7_pin  7
 int sensorPin = 1;
+<<<<<<< HEAD
+=======
+int buttonpin1 = 10; // button pin for alarm
+int press1 = 0;
+int buzzer = A5; // pin for buzzer  alarm
+>>>>>>> origin/master
 #define ECHO_PIN     11  // Arduino pin tied to echo pin on the ultrasonic sensor.
 #define TRIGGER_PIN  12  // Arduino pin tied to trigger pin on the ultrasonic sensor.
 #define MAX_DISTANCE 500 // Maximum distance we want to ping for (in centimeters). Maximum sensor distance is rated at 400-500cm.
@@ -33,6 +39,7 @@ LiquidCrystal_I2C lcd(I2C_ADDR,En_pin,Rw_pin,Rs_pin,D4_pin,D5_pin,D6_pin,D7_pin)
 
 void setup()
 {
+  pinMode (buttonpin1, INPUT);
   // initialize serial communication
   Serial.begin(9600);
   
@@ -47,11 +54,13 @@ void setup()
   delay(1500);
   Serial.println(" ");
   Serial.println("Sonar and temperature sensors enabled!");
+
   Serial.println(" ");
 }
 
 void loop()
 {
+<<<<<<< HEAD
    int reading = analogRead(sensorPin);  
  
  // converting that reading to voltage, for 3.3v arduino use 3.3
@@ -63,11 +72,19 @@ void loop()
  
  // now print out the temperature
  float temperatureC = (voltage - 0.5) * 100 ; 
+=======
+  
+  int reading = analogRead(sensorPin);  
+  
+  // converting that reading to voltage, for 3.3v arduino use 3.3
+  float voltage = reading * 5.0;
+  voltage /= 1024.0; 
+>>>>>>> origin/master
   int temperature = temp.getTemp();
   double uS = sonar.ping() * 1.0951047207; // Send ping, get calibrated ping time in microseconds (uS).
   unsigned int cm = ((1404.3 + 4.7*temperature - (0.04 * pow(temperature, 2))) * 0.00005114827 * uS) + 5; //gg magic calculations
 
-  String altitudeDisplay = "Altitude: ";
+  String altitudeDisplay = "";
   String altitudeDisplayUnits = " cm";
   String finalAltitudeDisplay = altitudeDisplay + cm + altitudeDisplayUnits;
   String temperatureDisplay = "";
@@ -76,12 +93,37 @@ void loop()
 
     lcd.setCursor (0,0); // go to start of 2nd line
       lcd.print(finalAltitudeDisplay);
-        delay(500);
-    lcd.setCursor (0,1); // go to start of 2nd line
+        delay(1000);
+    lcd.setCursor (5,0); // go to start of 2nd line
       lcd.print(finalTemperatureDisplay);
+<<<<<<< HEAD
         lcd.setCursor (5,1);
       lcd.print(temperatureC);
         delay(500);
+=======
+   
+       float temperatureC = (voltage - 0.5) * 100 ;  //converting from 10 mv per degree wit 500 mV offset
+                lcd.setCursor (0,1);                               //to degrees ((voltage - 500mV) times 100)
+lcd.print(temperatureC);
+
+  press1 = digitalRead(buttonpin1);
+ if (press1 == HIGH)
+ {
+    lcd.begin (16,2);
+    lcd.print("***ALARM TEST***");
+    lcd.setCursor (0,1);
+   
+        lcd.print("");
+  tone(buzzer, 1000); // Send 1KHz sound signal...
+  delay(1000);        // ...for 1 sec
+  noTone(buzzer);     // Stop sound...
+  delay(1000); 
+ }
+
+
+//
+        delay(1000);
+>>>>>>> origin/master
         
     Serial.println(finalAltitudeDisplay);
     Serial.println(finalTemperatureDisplay);
