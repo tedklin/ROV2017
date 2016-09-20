@@ -101,7 +101,7 @@ void loop()
     allReverse();
   }
   // if y-axis power is positive
-  else if (speed1 > 300)
+  else if (speed1 > 400)
   {
     allForwards();
   } 
@@ -119,7 +119,7 @@ void loop()
       }
     } 
     // if x-axis power is positive (right direction)
-    else if (speed2 > 300){
+    else if (speed2 > 400){
       if (inverted == false){
         turnRight();
         Serial.println("Turning right");
@@ -143,7 +143,7 @@ void loop()
     goDown();
   }
   // if y-axis power is positive
-  else if (speed0 > 300) 
+  else if (speed0 > 400) 
   {
     goUp();
   }
@@ -177,13 +177,13 @@ void verticalZero(){
 // lateral motor functions
 void rightReverse(){
   analogWrite(speedPinA, 255); 
-  digitalWrite(dir1PinB, LOW);
-  digitalWrite(dir2PinB, HIGH);
+  digitalWrite(dir1PinB, HIGH);
+  digitalWrite(dir2PinB, LOW);
 }
 void rightForwards(){
   analogWrite(speedPinA, 255);
-  digitalWrite(dir1PinB, HIGH);
-  digitalWrite(dir2PinB, LOW);
+  digitalWrite(dir1PinB, LOW);
+  digitalWrite(dir2PinB, HIGH);
 }
 void rightZero(){
   analogWrite(speedPinA, 255);
@@ -192,13 +192,13 @@ void rightZero(){
 }
 void leftReverse(){
   analogWrite(speedPinA, 255); 
-  digitalWrite(dir1PinC, LOW);
-  digitalWrite(dir2PinC, HIGH);  
+  digitalWrite(dir1PinC, HIGH);
+  digitalWrite(dir2PinC, LOW);  
 }
 void leftForwards(){
   analogWrite(speedPinA, 255);
-  digitalWrite(dir1PinC, HIGH);
-  digitalWrite(dir2PinC, LOW);  
+  digitalWrite(dir1PinC, LOW);
+  digitalWrite(dir2PinC, HIGH);  
 }
 void leftZero(){
   analogWrite(speedPinA, 0);
@@ -208,13 +208,13 @@ void leftZero(){
 
 // lateral motion functions
 void allForwards(){
-  rightForwards();
-  leftForwards();
+    rightReverse();
+  leftReverse();
   Serial.println("Forwards");
 }
 void allReverse(){
-  rightReverse();
-  leftReverse();
+  rightForwards();
+  leftForwards();
   Serial.println("Reverse");
 }
 void allZero(){
@@ -230,4 +230,3 @@ void turnRight(){
   leftForwards();
   rightReverse();
 }
-
