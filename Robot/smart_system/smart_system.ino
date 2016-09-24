@@ -3,6 +3,8 @@
  * @author Jiajer Ho (jh10422)
  * @author "Neil" (5caryT001sMan)
  * 
+ * 45C Robotics Smart System
+ * 16x02 Display
  * v1.8
 */
 
