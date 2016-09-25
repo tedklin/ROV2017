@@ -143,7 +143,7 @@ lcd.print("ALT:102");
    float v3 = v2+1;
     lcd.setCursor (0,1);
           lcd.print("");
- if (v3 < 11.8){
+ if (v3 < 11.8){ 
    lcd.setCursor(0,1);
           lcd.print("01 LOW VOLTAGE        ");
 if (mute < 1){
@@ -155,10 +155,18 @@ alarm = alarm + 1;
 }
 }
 if (press1 == HIGH){
-  if (alarm > 1){
+  if (mute > 1){
+     mute = 0;
+     alarm = 0;
+      lcd.setCursor(0,1);
+ lcd.print("02 ALARM UNMUTED       ");
+ delay(500);
+  }
+  else if (alarm > 1){
   mute = mute + 1;
        lcd.setCursor(0,1);
  lcd.print("02 ALARM MUTED       ");
+  delay(500);
   }
   else
  {
@@ -168,6 +176,7 @@ if (press1 == HIGH){
    noTone(piezoPin);
  }
 }
+
   else if (v3 > 11.8){
 
   lcd.setCursor(0,1);
