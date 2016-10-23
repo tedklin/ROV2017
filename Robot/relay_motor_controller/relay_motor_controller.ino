@@ -37,20 +37,9 @@ void setup() {
   pinMode(MM3, OUTPUT); // MOTOR 3 OUTPUT
   pinMode(M4, OUTPUT); //MOTOR 4 OUTPUT
   pinMode(MM4, OUTPUT); // MOTOR 4 OUTPUT
-}
 
-/**
- * note: all turning is with regards to the center of the robot
- * the joystick controls the robot based on the camera view
- * this is because the driver can't see the actual robot in water, they have to rely on the camera vision
- */
-void loop()
-{
-  // Joystick power
-  speed0 = analogRead(knob)/2; //vertical y-axis
-  speed1 = analogRead(knob1)/2; //left and right y-axis
-  speed2 = analogRead(knob2)/2; //left and right x-axis
-
+  // Inversion
+  bool inverted = false;
   char inversion = '1';
 
   // check for inversion
@@ -67,6 +56,19 @@ void loop()
     Serial.println("INVERSION MODE 1");
     inverted = false;
   }
+}
+
+/**
+ * note: all turning is with regards to the center of the robot
+ * the joystick controls the robot based on the camera view
+ * this is because the driver can't see the actual robot in water, they have to rely on the camera vision
+ */
+void loop()
+{
+  // Joystick power
+  speed0 = analogRead(knob)/2; //vertical y-axis
+  speed1 = analogRead(knob1)/2; //left and right y-axis
+  speed2 = analogRead(knob2)/2; //left and right x-axis
    
   /**
    * right and left motors
