@@ -4,7 +4,6 @@
  * ROV motor controller v2.2
  */
  
-// Declare L298N Dual H-Bridge Motor Controller directly since there is not a library to load.
 // Motors
 #define M1 0 //MOTOR 1
 #define MM1 1 //MOTOR 1
@@ -24,7 +23,6 @@ const int knob1 = 1; // Pin for Speed
 const int knob2 = 2; // Pin for Speed
 
 // Inversion
-char inversion = '1';
 bool inverted = false;
 
 void setup() {
@@ -54,7 +52,7 @@ void loop()
   speed2 = analogRead(knob2)/2; //left and right x-axis
 
   // check for inversion
-  if (Serial.available()){
+  if (Serial.available() > 0){
     inversion = Serial.read();
     if (inversion == '2'){
       Serial.println("INVERSION MODE 2");
