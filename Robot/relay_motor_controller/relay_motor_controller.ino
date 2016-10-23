@@ -26,7 +26,7 @@ const int knob2 = 2; // Pin for Speed
 bool inverted = false;
 
 void setup() {
-  # set up serial
+  // set up serial
   Serial.begin(9600);
 
   pinMode(M1, OUTPUT); //MOTOR 1 OUTPUT
@@ -50,6 +50,8 @@ void loop()
   speed0 = analogRead(knob)/2; //vertical y-axis
   speed1 = analogRead(knob1)/2; //left and right y-axis
   speed2 = analogRead(knob2)/2; //left and right x-axis
+
+  char inversion = '1';
 
   // check for inversion
   if (Serial.available() > 0){
