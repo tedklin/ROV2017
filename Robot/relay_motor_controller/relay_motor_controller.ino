@@ -5,14 +5,14 @@
  */
  
 // Motors
-#define M1 0 //MOTOR 1
-#define MM1 1 //MOTOR 1
-#define M2 2 //MOTOR 2
-#define MM2 3 //MOTOR 2
-#define M3 4 //MOTOR 3
-#define MM3 5 //MOTOR 3
-#define M4 6 //MOTOR 4
-#define MM4 7 //MOTOR 4
+#define M1 9 //MOTOR 1
+#define MM1 10 //MOTOR 1
+#define M2 3 //MOTOR 2
+#define MM2 11 //MOTOR 2
+#define M3 5 //MOTOR 3
+#define MM3 6 //MOTOR 3
+#define M4 7 //MOTOR 4
+#define MM4 8 //MOTOR 4
 
 // Speed pins
 int speed0 = 170; 
@@ -47,48 +47,38 @@ void loop()
   speed0 = analogRead(knob)/2; //vertical y-axis
   speed1 = analogRead(knob1)/2; //left and right y-axis
   speed2 = analogRead(knob2)/2; //left and right x-axis
-   
+
+  Serial.println("y-axis: " + String(speed1));
+  
   /**
    * right and left motors
    */
   // if y-axis power is negative
   if (speed1 < 50)
   {
-    allReverse();
+    allForwards();
   }
   // if y-axis power is positive
-  else if (speed1 > 400)
+  else if (speed1 > 500)
   {
-    allForwards();
+    allReverse();
   } 
   // if y-axis power is at resting state (for the sake of brevity we're calling it zero from now on)
   else 
   {
     // if x-axis power is negative (left direction)
     if (speed2 < 50){
-      if (inverted == false){
-        turnLeft();
-        Serial.println("Turning left");
-      } else if (inverted == true) {
-        turnRight();
-        Serial.println("Turning left");
-      }
+      turnLeft();
     } 
     // if x-axis power is positive (right direction)
     else if (speed2 > 400){
-      if (inverted == false){
-        turnRight();
-        Serial.println("Turning right");
-      } else if (inverted == true) {
-        turnLeft();
-        Serial.println("Turning right");
-      }
+      turnRight();
     } 
     // if x-axis power is zero 
     else {
       allZero();
     }
-  }
+    }
 
 /**
  * vertical motors
@@ -128,12 +118,12 @@ void verticalZero(){
 
 // lateral motion functions
 void allForwards(){
-  digitalWrite(M1, HIGH); //MOTOR 1 CLOCKWISE
-  digitalWrite(M2, HIGH); //MOTOR 2 CLOCKWISE
+  pinMode(M1, HIGH); //MOTOR 1 CLOCKWISE
+  pinMode(M2, HIGH); //MOTOR 2 CLOCKWISE
 }
 void allReverse(){
-  digitalWrite(MM1, HIGH); //MOTOR 1 COUNTER CLOCKWISE
-  digitalWrite(MM2, HIGH); //MOTOR 2 COUNTER CLOCKWISE
+  pinMode(MM1, HIGH); //MOTOR 1 COUNTER CLOCKWISE
+  pinMode(MM2, HIGH); //MOTOR 2 COUNTER CLOCKWISE
 }
 void allZero(){
   pinMode(M1, LOW); //MOTOR 1 STOP
@@ -146,11 +136,11 @@ void allZero(){
   pinMode(MM4, LOW); // MOTOR 4 STOP
 }
 void turnLeft(){
-  digitalWrite(M1, HIGH); //MOTOR 1 CLOCKWISE
-  digitalWrite(MM2, HIGH); //MOTOR 2 COUNTER CLOCKWISE
+  pinMode(M1, HIGH); //MOTOR 1 CLOCKWISE
+  pinMode(MM2, HIGH); //MOTOR 2 COUNTER CLOCKWISE
 }
 void turnRight(){
-  digitalWrite(MM1, HIGH); //MOTOR 1 COUNTER CLOCKWISE
-  digitalWrite(M2, HIGH); //MOTOR 2 CLOCKWISE
+  pinMode(MM1, HIGH); //MOTOR 1 COUNTER CLOCKWISE
+  pinMode(M2, HIGH); //MOTOR 2 CLOCKWISE
 }
 
