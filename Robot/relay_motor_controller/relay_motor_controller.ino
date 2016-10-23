@@ -22,9 +22,6 @@ const int knob = 0; // Pin for Speed
 const int knob1 = 1; // Pin for Speed
 const int knob2 = 2; // Pin for Speed
 
-// Inversion
-bool inverted = false;
-
 void setup() {
   // set up serial
   Serial.begin(9600);
@@ -37,25 +34,6 @@ void setup() {
   pinMode(MM3, OUTPUT); // MOTOR 3 OUTPUT
   pinMode(M4, OUTPUT); //MOTOR 4 OUTPUT
   pinMode(MM4, OUTPUT); // MOTOR 4 OUTPUT
-
-  // Inversion
-  bool inverted = false;
-  char inversion = '1';
-
-  // check for inversion
-  if (Serial.available() > 0){
-    inversion = Serial.read();
-    if (inversion == '2'){
-      Serial.println("INVERSION MODE 2");
-      inverted = true;
-    } else {
-      Serial.println("INVERSION MODE 1");
-      inverted = false;
-    }
-  } else {
-    Serial.println("INVERSION MODE 1");
-    inverted = false;
-  }
 }
 
 /**
