@@ -14,6 +14,7 @@
 #define MM3 5 //MOTOR 3
 #define M4 6 //MOTOR 4
 #define MM4 7 //MOTOR 4
+
 // Speed pins
 int speed0 = 170; 
 int speed1 = 170; 
@@ -21,27 +22,23 @@ int speed2 = 170;
 const int knob = 0; // Pin for Speed
 const int knob1 = 1; // Pin for Speed
 const int knob2 = 2; // Pin for Speed
-  // Inhibits the motor
+
+// Inversion
 char inversion = '1';
 bool inverted = false;
+
 void setup() {
-  // initialize serial communication
+  # set up serial
+  Serial.begin(9600);
 
-
-// Define L298N Dual H-Bridge Motor Controller Pins
-
-pinMode(M1, OUTPUT); //MOTOR 1 OUTPUT
-pinMode(MM1, OUTPUT); // MOTOR 1 OUTPUT
-pinMode(M2, OUTPUT); //MOTOR 2 OUTPUT
-pinMode(MM2, OUTPUT); // MOTOR 2 OUTPUT
-pinMode(M3, OUTPUT); //MOTOR 3 OUTPUT
-pinMode(MM3, OUTPUT); // MOTOR 3 OUTPUT
-pinMode(M4, OUTPUT); //MOTOR 4 OUTPUT
-pinMode(MM4, OUTPUT); // MOTOR 4 OUTPUT
-  // Output pin configuration 3
-
-  
-
+  pinMode(M1, OUTPUT); //MOTOR 1 OUTPUT
+  pinMode(MM1, OUTPUT); // MOTOR 1 OUTPUT
+  pinMode(M2, OUTPUT); //MOTOR 2 OUTPUT
+  pinMode(MM2, OUTPUT); // MOTOR 2 OUTPUT
+  pinMode(M3, OUTPUT); //MOTOR 3 OUTPUT
+  pinMode(MM3, OUTPUT); // MOTOR 3 OUTPUT
+  pinMode(M4, OUTPUT); //MOTOR 4 OUTPUT
+  pinMode(MM4, OUTPUT); // MOTOR 4 OUTPUT
 }
 
 /**
@@ -71,9 +68,9 @@ void loop()
     inverted = false;
   }
    
-/**
- * right and left motors
- */
+  /**
+   * right and left motors
+   */
   // if y-axis power is negative
   if (speed1 < 50)
   {
@@ -135,46 +132,45 @@ void loop()
 
 // vertical motor functions and motion 
 void goUp(){
-pinMode(M3, HIGH); //MOTOR 3 CLOCKWISE
-pinMode(M4, HIGH); // MOTOR 4 CLOCKWISE
+  pinMode(M3, HIGH); //MOTOR 3 CLOCKWISE
+  pinMode(M4, HIGH); // MOTOR 4 CLOCKWISE
 }
 void goDown(){
-pinMode(MM3, HIGH); //MOTOR 3 COUNTER CLOCKWISE
-pinMode(MM4, HIGH); // MOTOR 4 COUNTER CLOCKWISE
+  pinMode(MM3, HIGH); //MOTOR 3 COUNTER CLOCKWISE
+  pinMode(MM4, HIGH); // MOTOR 4 COUNTER CLOCKWISE
 }
 void verticalZero(){
-pinMode(M3, LOW); //MOTOR 3 STOP
-pinMode(MM3, LOW); // MOTOR 3 STOP
-pinMode(M4, LOW); //MOTOR 4 STOP
-pinMode(MM4, LOW); // MOTOR 4 STOP
+  pinMode(M3, LOW); //MOTOR 3 STOP
+  pinMode(MM3, LOW); // MOTOR 3 STOP
+  pinMode(M4, LOW); //MOTOR 4 STOP
+  pinMode(MM4, LOW); // MOTOR 4 STOP
 }
-
-// lateral motor functions
 
 // lateral motion functions
 void allForwards(){
-digitalWrite(M1, HIGH); //MOTOR 1 CLOCKWISE
-digitalWrite(M2, HIGH); //MOTOR 2 CLOCKWISE
+  digitalWrite(M1, HIGH); //MOTOR 1 CLOCKWISE
+  digitalWrite(M2, HIGH); //MOTOR 2 CLOCKWISE
 }
 void allReverse(){
-digitalWrite(MM1, HIGH); //MOTOR 1 COUNTER CLOCKWISE
-digitalWrite(MM2, HIGH); //MOTOR 2 COUNTER CLOCKWISE
+  digitalWrite(MM1, HIGH); //MOTOR 1 COUNTER CLOCKWISE
+  digitalWrite(MM2, HIGH); //MOTOR 2 COUNTER CLOCKWISE
 }
 void allZero(){
-pinMode(M1, LOW); //MOTOR 1 STOP
-pinMode(MM1, LOW); // MOTOR 1 STOP
-pinMode(M2, LOW); //MOTOR 2 STOP
-pinMode(MM2, LOW); // MOTOR 2 STOP
-pinMode(M3, LOW); //MOTOR 3 STOP
-pinMode(MM3, LOW); // MOTOR 3 STOP
-pinMode(M4, LOW); //MOTOR 4 STOP
-pinMode(MM4, LOW); // MOTOR 4 STOP
+  pinMode(M1, LOW); //MOTOR 1 STOP
+  pinMode(MM1, LOW); // MOTOR 1 STOP
+  pinMode(M2, LOW); //MOTOR 2 STOP
+  pinMode(MM2, LOW); // MOTOR 2 STOP
+  pinMode(M3, LOW); //MOTOR 3 STOP
+  pinMode(MM3, LOW); // MOTOR 3 STOP
+  pinMode(M4, LOW); //MOTOR 4 STOP
+  pinMode(MM4, LOW); // MOTOR 4 STOP
 }
 void turnLeft(){
-digitalWrite(M1, HIGH); //MOTOR 1 CLOCKWISE
-digitalWrite(MM2, HIGH); //MOTOR 2 COUNTER CLOCKWISE
+  digitalWrite(M1, HIGH); //MOTOR 1 CLOCKWISE
+  digitalWrite(MM2, HIGH); //MOTOR 2 COUNTER CLOCKWISE
 }
 void turnRight(){
- digitalWrite(MM1, HIGH); //MOTOR 1 COUNTER CLOCKWISE
-digitalWrite(M2, HIGH); //MOTOR 2 CLOCKWISE
+  digitalWrite(MM1, HIGH); //MOTOR 1 COUNTER CLOCKWISE
+  digitalWrite(M2, HIGH); //MOTOR 2 CLOCKWISE
 }
+
