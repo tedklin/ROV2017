@@ -102,12 +102,12 @@ void loop()
 
 // vertical motor functions and motion 
 void goUp(){
-  pinMode(M3, HIGH); //MOTOR 3 CLOCKWISE
-  pinMode(M4, HIGH); // MOTOR 4 CLOCKWISE
+  pinMode(MM3, HIGH); //MOTOR 3 CLOCKWISE
+  pinMode(MM4, HIGH); // MOTOR 4 CLOCKWISE
 }
 void goDown(){
-  pinMode(MM3, HIGH); //MOTOR 3 COUNTER CLOCKWISE
-  pinMode(MM4, HIGH); // MOTOR 4 COUNTER CLOCKWISE
+  pinMode(M3, HIGH); //MOTOR 3 COUNTER CLOCKWISE
+  pinMode(M4, HIGH); // MOTOR 4 COUNTER CLOCKWISE
 }
 void verticalZero(){
   pinMode(M3, LOW); //MOTOR 3 STOP
