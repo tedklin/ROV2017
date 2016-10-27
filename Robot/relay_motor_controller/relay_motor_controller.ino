@@ -1,6 +1,7 @@
 /**
  * @author tedfoodlin
  * @author jiajerho
+ * @author neil
  * 
  * ROV relay motor controller v2.2
  */
