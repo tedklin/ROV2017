@@ -45,8 +45,9 @@ void loop()
 {
   // Joystick power
   speed0 = analogRead(knob)/2; //vertical y-axis
-  speed1 = analogRead(knob1)/2; //left and right y-axis
-  speed2 = analogRead(knob2)/2; //left and right x-axis
+  speed3 = analogRead(knob3)/2; // vertical x-axis
+  speed1 = analogRead(knob1)/2; //lateral y-axis
+  speed2 = analogRead(knob2)/2; //lateral x-axis
 
   Serial.println("y-axis: " + String(speed1));
   
@@ -78,7 +79,7 @@ void loop()
     else {
       allZero();
     }
-    }
+  }
 
 /**
  * vertical motors
@@ -96,7 +97,15 @@ void loop()
   // if y-axis power is zero
   else 
   {
-    verticalZero();
+    if (speed3 < 50){
+      pitchFwd();
+    }
+    else if (speed3 > 400){
+      pitchBack();
+    }
+    else {
+      verticalZero();
+    }
   }
 }
 
@@ -108,6 +117,14 @@ void goUp(){
 void goDown(){
   pinMode(M3, HIGH); //MOTOR 3 COUNTER CLOCKWISE
   pinMode(M4, HIGH); // MOTOR 4 COUNTER CLOCKWISE
+}
+void pitchFwd(){
+  pinMode(M3, HIGH); 
+  pinMode(MM4, HIGH);
+}
+void pitchBack(){
+  pinMode(MM3, HIGH);
+  pinMode(M3, HIGH);
 }
 void verticalZero(){
   pinMode(M3, LOW); //MOTOR 3 STOP
