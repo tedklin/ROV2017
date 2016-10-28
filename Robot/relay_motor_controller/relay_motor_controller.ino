@@ -192,10 +192,6 @@ void setLateralMotion(lateralMotion) {
     pinMode(MM1, LOW); // MOTOR 1 STOP
     pinMode(M2, LOW); //MOTOR 2 STOP
     pinMode(MM2, LOW); // MOTOR 2 STOP
-    pinMode(M3, LOW); //MOTOR 3 STOP
-    pinMode(MM3, LOW); // MOTOR 3 STOP
-    pinMode(M4, LOW); //MOTOR 4 STOP
-    pinMode(MM4, LOW); // MOTOR 4 STOP
   }
 }
 
