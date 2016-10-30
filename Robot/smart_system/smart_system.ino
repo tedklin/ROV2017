@@ -118,6 +118,7 @@ void loop()
     
   float v = (analogRead(1) * vPow) / 1024.0;
   float v2 = v / (r2 / (r1 + r2));
+  
   // Send ANSI terminal codes
   Serial.print("\x1B");
   Serial.print("[1A");
